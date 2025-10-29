@@ -1,26 +1,91 @@
-@import "tailwindcss";
+/* Tailwind setup */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* --- BOOTSTRAP + TAILWIND BRIDGE --- */
+
+/* 1. Normalize Bootstrap's box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* 2. Make Bootstrap buttons respect Tailwind utilities */
+.btn {
+  @apply font-medium transition-all duration-200 ease-in-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Allow Tailwind color classes to override Bootstrap defaults */
+.btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700 border-0;
 }
 
+.btn-success {
+  @apply bg-green-600 hover:bg-green-700 border-0;
+}
+
+.btn-danger {
+  @apply bg-red-600 hover:bg-red-700 border-0;
+}
+
+/* 3. Adjust Bootstrap container spacing for Tailwind rhythm */
+.container {
+  @apply mx-auto px-4 md:px-6;
+}
+
+/* 4. Remove Bootstrap’s default body margin/padding */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* 5. Sync text and background with your custom variables */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 6. Optional: Smooth scroll and consistent link color */
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+/* --- END BOOTSTRAP + TAILWIND BRIDGE --- */
+
+/* Custom colors */
+:root {
+  --background: hwb(278 64% 3% / 0.411);
+  --foreground: hsla(0, 17%, 98%, 0.87);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: hwb(210 15% 8% / 0.411);
+    --foreground: hsla(0, 0%, 100%, 0.87);
+  }
+}
+
+/* Body styling */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+/* Additional global styles can be added here */    
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
