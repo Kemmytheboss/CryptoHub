@@ -2,6 +2,7 @@
 
 import React from "react";
 
+
 export default function SocialFeed() {
   const posts = [
     { id: 1, user: "CryptoQueen", content: "BTC breaking resistance again! 🚀" },
