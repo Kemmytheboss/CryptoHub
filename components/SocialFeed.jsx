@@ -2,9 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import Newscard from "./NewsCard";
-import Redditfeed from "./Redditfeed";
-import insightbox from "./Insightbox";
-
+import RedditFeed from "./RedditFeed";
+import InsightBox from "./InsightBox";
 
 export default function SocialFeed() {
   const [news, setNews] = useState([]);
@@ -14,7 +13,7 @@ export default function SocialFeed() {
   useEffect(() => {
     async function fetchNews() {
       try {
-        const res = await fetch( "https://api.coinmarketcap.com/data-api/v3/news/list?size=5");
+        const res = await fetch( "/api/news");
         const data = await res.json();
         setNews(data.data);
       } catch (err) {
@@ -37,15 +36,16 @@ export default function SocialFeed() {
     <section className="p-8 bg-white/5 mt-8 rounded-xl">
       <h2 className="text-3xl font-semibold mb-4 text-center">Social Feed</h2>
 
-      <Insights />
+      <InsightBox />
 
       <div className="grid md:grid-cols-2 gap-6 mb-10">{news.map((item)=> (
+    
         <Newscard key={item.id} newsItem={item} />
       ))}</div>
 
       <h3 className="text-2xl font-semibold mb-4 text-center">Reddit Crypto Discussions</h3>
-      <Redditfeed />
-      
+      <RedditFeed />
+
     </section>
   );
 }
