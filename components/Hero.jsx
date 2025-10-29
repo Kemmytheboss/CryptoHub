@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import heroGIF from "../public/bit.gif"; 
+import Image from "next/image";
 
 function Hero() {
   return (
@@ -41,7 +41,7 @@ function Hero() {
         transition={{ duration: 1.2 }}
       >
         <Image
-          src={heroGIF}
+          src='/images/bit.gif'
           alt="Crypto vibe animation"
           width={400}
           height={400}

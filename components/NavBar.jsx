@@ -1,7 +1,6 @@
 function NavBar() {
   return (
     <nav className="bg-purple-900 p-4">
-      <h1 className="text-xl font-bold">TrendyCryptoVibe</h1>
       <div className="container mx-auto flex justify-between items-center">
         <a href="/" className="text-white text-lg font-bold">TrendyCryptoVibe</a>
         <div className="space-x-4">
