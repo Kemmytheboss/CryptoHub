@@ -1,26 +1,51 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Newscard from "./NewsCard";
+import Redditfeed from "./Redditfeed";
+import insightbox from "./Insightbox";
 
 
 export default function SocialFeed() {
-  const posts = [
-    { id: 1, user: "CryptoQueen", content: "BTC breaking resistance again! 🚀" },
-    { id: 2, user: "DeFiGuru", content: "ETH merge effects still underrated 💎" },
-    { id: 3, user: "TrendWatcher", content: "Altcoin season might be close..." },
-  ];
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+//   fetch coinmarketcap news
+  useEffect(() => {
+    async function fetchNews() {
+      try {
+        const res = await fetch( "https://api.coinmarketcap.com/data-api/v3/news/list?size=5");
+        const data = await res.json();
+        setNews(data.data);
+      } catch (err) {
+        console.error("Failed to fetch news:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchNews();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="text-center text-gray-400 p-8">Loading latest crypto news...</div>
+    );
+  }
 
   return (
     <section className="p-8 bg-white/5 mt-8 rounded-xl">
       <h2 className="text-3xl font-semibold mb-4 text-center">Social Feed</h2>
-      <div className="space-y-4">
-        {posts.map((post) => (
-          <div key={post.id} className="p-4 bg-white/10 rounded-lg">
-            <h4 className="font-bold text-lg">@{post.user}</h4>
-            <p>{post.content}</p>
-          </div>
-        ))}
-      </div>
+
+      <Insights />
+
+      <div className="grid md:grid-cols-2 gap-6 mb-10">{news.map((item)=> (
+        <Newscard key={item.id} newsItem={item} />
+      ))}</div>
+
+      <h3 className="text-2xl font-semibold mb-4 text-center">Reddit Crypto Discussions</h3>
+      <Redditfeed />
+      
     </section>
   );
 }
