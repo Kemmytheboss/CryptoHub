@@ -43,8 +43,8 @@ function Hero() {
         <Image
           src='/images/bit.gif'
           alt="Crypto vibe animation"
-          width={400}
-          height={400}
+          width={450}
+          height={600}
           className="rounded-2xl shadow-2xl"
         />
       </motion.div>
