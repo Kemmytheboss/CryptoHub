@@ -59,15 +59,15 @@ export default function RegisterPage() {
                         required
                         className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                    <label className="flex items-center gap space between text-gray-300 text-sm w-full text-left">
+                    <label className="flex items-center text-gray-300 text-sm w-full text-left leading-tight">
                         <input
                             type="checkbox"
                             name="terms"
                             checked={form.terms}
                             onChange={handleChange}
-                            className="accent-blue-500"
+                            className="accent-blue-500 mr-3 mt-[2px]"
                         />
-                            I agree to the <a href="/terms" className="text-blue-500 hover:underline">Terms & Conditions</a>
+                            I accept to the {""} <a href="/terms" className="text-blue-500 hover:underline">Terms & Conditions</a>
                     </label>
                     <button
                         type="submit"
