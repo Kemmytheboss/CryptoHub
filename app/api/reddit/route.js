@@ -1,7 +1,7 @@
 export async function GET() {
   try {
     const res = await fetch(
-            "https://www.reddit.com/r/cryptocurrency+bitcoin+CryptoMarkets+ethtrader/hot.json?limit=20",
+            "https://www.reddit.com/r/cryptocurrency+bitcoin+CryptoMarkets+ethtrader/hot.json?limit=2",
       { next: { revalidate: 60 } } // cache for 60s
     );
 

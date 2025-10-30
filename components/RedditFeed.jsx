@@ -21,7 +21,7 @@ export default function RedditFeed() {
 
     fetchReddit();
 
-    // refresh every 2 minutes automatically
+    // refresh every minute automatically
     const interval = setInterval(fetchReddit, 6000);
     return () => clearInterval(interval);
   }, []);

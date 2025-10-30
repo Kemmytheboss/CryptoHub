@@ -26,7 +26,7 @@ export default function Contact() {
         <section className="p-8 bg-white/5 mt-8 rounded-xl max-w-3xl mx-auto">
             <div className="mb-6 text-center">
                 <h2 className="text-3xl font-semibold mb-2">Contact Us</h2>
-                <p className="text-gray-400">Have questions or want to collaborate? Send us a message!.</p>
+                <p className="text-black-400">Have questions or want to collaborate? Send us a message!.</p>
                 <form
                     onSubmit={handleSubmit}
                     className="mt-6 flex flex-col gap-4"
