@@ -1,7 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import PredictionCard from "./PredictionCard";
-import FavoritesList from "./FavoritesList";
 
 export default function LiveDashboard() {
   const [coins, setCoins] = useState([]);
