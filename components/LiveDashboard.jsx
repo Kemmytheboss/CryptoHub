@@ -10,9 +10,7 @@ export default function LiveDashboard() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch(
-          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
-        );
+        const res = await fetch("/api/coins");
         const data = await res.json();
         setCoins(data);
       } catch (err) {
@@ -25,28 +23,12 @@ export default function LiveDashboard() {
     fetchData();
 
     // Load favorites from localStorage
-    const stored = JSON.parse(localStorage.getItem("favorites") || "[]");
-    setFavorites(stored);
+    const interval = setInterval(fetchData, 60000); // Refresh every 60 seconds
+    return () => clearInterval(interval);
   }, []);
 
-  // ⭐ Handle favorites toggle
-  function toggleFavorite(coin) {
-    const exists = favorites.find((f) => f.id === coin.id);
-    let updated;
-    if (exists) {
-      updated = favorites.filter((f) => f.id !== coin.id);
-    } else {
-      updated = [...favorites, coin];
-    }
-    setFavorites(updated);
-    localStorage.setItem("favorites", JSON.stringify(updated));
-  }
-
-  if (loading) {
-    return (
-      <div className="text-center text-gray-400 p-8">Loading live data...</div>
-    );
-  }
+  if (loading) 
+    return <p>Loading live data...</p>;
 
   return (
     <section className="p-6 bg-gray-900 text-white rounded-xl shadow-lg">
