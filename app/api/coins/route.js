@@ -1,7 +1,7 @@
 export async function GET() {
     try {
         const response = await fetch (
-            'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=5',
+            'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=20',
             {
                 headers: {
                     'X-CMC_PRO_API_KEY': process.env.CMC_API_KEY,
