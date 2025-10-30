@@ -30,53 +30,40 @@ export default function LiveDashboard() {
   if (loading) 
     return <p>Loading live data...</p>;
 
-  return (
-    <section className="p-6 bg-gray-900 text-white rounded-xl shadow-lg">
-      <h2 className="text-3xl font-bold mb-6 text-center">
-        📊 Live Dashboard — Top 20 Coins
-      </h2>
+ return (
+    <section className="p-6 bg-gray-900 rounded-2xl shadow-lg text-white">
+      <h2 className="text-2xl font-bold mb-4 text-center">Top 20 Cryptocurrencies</h2>
 
-      {/* === Live Data Section === */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-        {coins.map((coin) => (
-          <div
-            key={coin.id}
-            className="p-4 bg-gray-800 rounded-lg flex justify-between items-center hover:bg-gray-700 transition"
-          >
-            <div className="flex items-center gap-3">
-              <img
-                src={coin.image}
-                alt={coin.name}
-                className="w-8 h-8 rounded-full"
-              />
-              <div>
-                <h3 className="text-lg font-semibold">{coin.name}</h3>
-                <p className="text-sm text-gray-400">
-                  ${coin.current_price.toLocaleString()}
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() => toggleFavorite(coin)}
-              className={`px-3 py-1 rounded-lg text-lg ${
-                favorites.some((f) => f.id === coin.id)
-                  ? "bg-yellow-500 text-black"
-                  : "bg-gray-700"
-              }`}
-            >
-              ⭐
-            </button>
-          </div>
-        ))}
+      <div className="overflow-x-auto">
+        <table className="min-w-full text-sm text-gray-200">
+          <thead className="bg-gray-800 text-gray-300">
+            <tr>
+              <th className="py-2 px-4 text-left">#</th>
+              <th className="py-2 px-4 text-left">Name</th>
+              <th className="py-2 px-4 text-left">Price (USD)</th>
+              <th className="py-2 px-4 text-left">24h Change</th>
+              <th className="py-2 px-4 text-left">Market Cap</th>
+            </tr>
+          </thead>
+          <tbody>
+            {coins.map((coin, index) => (
+              <tr key={coin.id} className="border-b border-gray-700 hover:bg-gray-800">
+                <td className="py-2 px-4">{index + 1}</td>
+                <td className="py-2 px-4 font-medium">{coin.name}</td>
+                <td className="py-2 px-4">${coin.quote.USD.price.toFixed(2)}</td>
+                <td
+                  className={`py-2 px-4 ${
+                    coin.quote.USD.percent_change_24h > 0 ? "text-green-400" : "text-red-400"
+                  }`}
+                >
+                  {coin.quote.USD.percent_change_24h.toFixed(2)}%
+                </td>
+                <td className="py-2 px-4">${coin.quote.USD.market_cap.toLocaleString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-
-      {/* === Predictions Section === */}
-      <h3 className="text-2xl font-semibold mb-4">🔮 Market Predictions</h3>
-      <PredictionCard coins={coins} />
-
-      {/* === Favorites Section === */}
-      <h3 className="text-2xl font-semibold mt-10 mb-4">⭐ Your Favorites</h3>
-      <FavoritesList favorites={favorites} />
     </section>
   );
 }
