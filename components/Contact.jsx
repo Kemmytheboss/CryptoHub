@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { FaTwitter, FaDiscord, FaTelegram } from "react-icons/fa";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -64,29 +63,7 @@ export default function Contact() {
                         Send Message
                     </button>
                 </form>
-                <div className="flex justify-center gap-8 mt-10">
-                    <a
-                        href="https://twitter.com"
-                        target="_blank"
-                        className="text-[#00FFF0] text-3xl hover:text-[#FF00FF] hover:drop-shadow-[0_0_20px_#FF00FF] transition-all duration-300"
-                    >
-                        <FaTwitter />
-                    </a>
-                    <a
-                        href="https://discord.com"
-                        target="_blank"
-                        className="text-[#00FFF0] text-3xl hover:text-[#FF00FF] hover:drop-shadow-[0_0_20px_#FF00FF] transition-all duration-300"
-                    >
-                        <FaDiscord />
-                    </a>
-                    <a
-                        href="https://telegram.org"
-                        target="_blank"
-                        className="text-[#00FFF0] text-3xl hover:text-[#FF00FF] hover:drop-shadow-[0_0_20px_#FF00FF] transition-all duration-300"
-                    >
-                        <FaTelegram />
-                    </a>
-                </div>
+
             </div>
         </section>
     );
