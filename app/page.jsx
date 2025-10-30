@@ -1,6 +1,7 @@
 import Hero from "../components/Hero";
 import LiveDashboard from "../components/LiveDashboard";
 import SocialFeed from "../components/SocialFeed";
+import Contact from "../components/Contact";
 
  function Home() {
   return (
@@ -8,6 +9,7 @@ import SocialFeed from "../components/SocialFeed";
       <Hero />
       <LiveDashboard />
       <SocialFeed />
+      <Contact />
     </div>
   );
 }
