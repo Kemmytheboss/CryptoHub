@@ -14,7 +14,7 @@ export async function GET() {
         const simplified = data.data.slice(0, 10).map(coin => ({
             id: coin.id,
             title: `${coin.name} (${coin.symbol}) update`,
-            body: `{coin.name} is currently priced at $${coin.quote.USD.price.toFixed(2)} with a 24h change of ${coin.quote.USD.percent_change_24h.toFixed(2)}%.`,
+            body: `${coin.name} is currently priced at $${coin.quote.USD.price.toFixed(2)} with a 24h change of ${coin.quote.USD.percent_change_24h.toFixed(2)}%.`,
             link: `https://coinmarketcap.com/currencies/${coin.slug}/`,
         }));
         return NextResponse.json({ data: simplified });
