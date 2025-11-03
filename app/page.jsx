@@ -1,7 +1,7 @@
-import Hero from "../components/Hero";
-import LiveDashboard from "../components/LiveDashboard";
-import SocialFeed from "../components/SocialFeed";
-import Contact from "../components/Contact";
+import Hero from "./trading/components/Hero";
+import LiveDashboard from "./trading/components/LiveDashboard";
+import SocialFeed from "./trading/components/SocialFeed";
+import Contact from "./trading/components/Contact";
 
  function Home() {
   return (

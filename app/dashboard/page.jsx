@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import LiveDashboard from "../../components/LiveDashboard";
+import LiveDashboard from "../trading/components/LiveDashboard";
 
 export default function DashboardPage() {
   return (

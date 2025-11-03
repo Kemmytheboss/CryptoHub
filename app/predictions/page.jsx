@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Predictions from "../../components/PredictionCard";
+import Predictions from "../trading/components/PredictionCard";
 
 export default function predictionsPage() {
     const [coins, setCoins] = useState([]);
