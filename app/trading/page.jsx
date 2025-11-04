@@ -78,27 +78,108 @@ useEffect(()=> {
       alert(`${type} order placed for ${amount} ${symbol} at $${price}`);
 
     };
-    
+
    return (
-    <section className="trading-page">
-      <div className="trading-chart-section">
-        <h1 classname="text-2xl font-bold mb-4">Trading Chart</h1>
+    <section className="p-6 bg-gray-900 text-white rounded-2xl shadow-lg">
+      <h2 className="text-3xl font-bold text-center mb-6">Trading Terminal</h2>
 
-        <div className="chart-container">
-            <div className="chart-wrapper">
-                <TradingChart symbol="BTCUSDT" />
-                </div>
+      {/* Symbol Dropdown */}
+      <div className="flex justify-center mb-6">
+        <select
+          value={symbol}
+          onChange={(e) => setSymbol(e.target.value)}
+          className="bg-gray-800 text-white px-4 py-2 rounded-md border border-gray-700 focus:outline-none focus:ring focus:ring-blue-400"
+        >
+          {coins.map((coin) => (
+            <option key={coin} value={coin}>
+              {coin.replace("USDT", "")} / USDT
+            </option>
+          ))}
+        </select>
+      </div>
 
-                <div className="trade-form-wrapper">
-                    <TradeForm />
-                </div>
-            </div>
+      {/* Live Price */}
+      <div className="text-center mb-6">
+        <p className="text-lg text-gray-300">
+          Live Price:{" "}
+          <span className="text-[#00FFF0] font-semibold">${price || "Loading..."}</span>
+        </p>
+      </div>
 
-            <div className="order-history-section mt-8">
-                <h2 className="text-xl font-bold mb-4">Order History</h2>
-                <OrderHistory />    
-            </div>
+      {/* Chart */}
+      <div
+        ref={container}
+        className="tradingview-chart-container rounded-xl overflow-hidden mb-8"
+        style={{ height: "500px" }}
+      ></div>
+
+      {/* Order Section */}
+      <div className="grid md:grid-cols-3 gap-6">
+        {/* Buy/Sell Form */}
+        <div className="md:col-span-1 bg-gray-800 p-6 rounded-xl">
+          <h3 className="text-2xl font-semibold mb-4 text-center">Trade</h3>
+          <input
+            type="number"
+            placeholder="Enter amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="w-full p-2 mb-4 bg-gray-700 text-white rounded-md focus:ring focus:ring-blue-400"
+          />
+          <div className="flex gap-4">
+            <button
+              onClick={() => handleOrder("BUY")}
+              className="flex-1 py-2 bg-green-600 hover:bg-green-700 rounded-md transition-all"
+            >
+              BUY
+            </button>
+            <button
+              onClick={() => handleOrder("SELL")}
+              className="flex-1 py-2 bg-red-600 hover:bg-red-700 rounded-md transition-all"
+            >
+              SELL
+            </button>
+          </div>
         </div>
-      </section>
+
+        {/* Orders History */}
+        <div className="md:col-span-2 bg-gray-800 p-6 rounded-xl">
+          <h3 className="text-2xl font-semibold mb-4 text-center">Order History</h3>
+          {orders.length === 0 ? (
+            <p className="text-gray-400 text-center">No orders yet.</p>
+          ) : (
+            <table className="w-full text-sm text-gray-300">
+              <thead className="border-b border-gray-700">
+                <tr>
+                  <th className="py-2">Type</th>
+                  <th>Symbol</th>
+                  <th>Amount</th>
+                  <th>Price</th>
+                  <th>Total</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders.map((order) => (
+                  <tr key={order.id} className="border-b border-gray-700">
+                    <td
+                      className={`py-2 font-bold ${
+                        order.type === "BUY" ? "text-green-400" : "text-red-400"
+                      }`}
+                    >
+                      {order.type}
+                    </td>
+                    <td>{order.symbol}</td>
+                    <td>{order.amount}</td>
+                    <td>${order.price}</td>
+                    <td>${order.total}</td>
+                    <td>{order.time}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </div>
+    </section>
   );
-}   
+}
