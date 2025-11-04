@@ -1,10 +1,8 @@
 'use client';
-import { clear } from "console";
 import React, {useState, useRef, useEffect} from "react";
-import { getEffectiveConstraintOfTypeParameter } from "typescript";
 
 export default function TradingPlatform() {
-  const container = useRef;
+  const container = useRef();
 
   const [symbol,setSymbol] = useState ("BTCUSDT");
   const [price, setPrice] = useState(0);
@@ -78,6 +76,19 @@ useEffect(()=> {
       alert(`${type} order placed for ${amount} ${symbol} at $${price}`);
 
     };
+    function getAIPrediction(symbol) {
+  const signals = ["STRONG BUY", "BUY", "HOLD", "SELL", "STRONG SELL"];
+  const randomSignal = signals[Math.floor(Math.random() * signals.length)];
+  const confidence = (Math.random() * (100 - 60) + 60).toFixed(1); // 60–100%
+
+  return {
+    symbol,
+    signal: randomSignal,
+    confidence,
+    timestamp: new Date().toLocaleTimeString(),
+  };
+}
+
 
    return (
     <section className="p-6 bg-gray-900 text-white rounded-2xl shadow-lg">
@@ -107,7 +118,7 @@ useEffect(()=> {
       </div>
 
       {/* Chart */}
-      <div
+       <div
         ref={container}
         className="tradingview-chart-container rounded-xl overflow-hidden mb-8"
         style={{ height: "500px" }}
