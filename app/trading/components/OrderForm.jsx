@@ -1,7 +1,7 @@
 'use client';
 import { useState} from "react";
 
-export default function TradeForm({ onTradeExecute }) {
+export default function OrderForm({ onTradeExecute }) {
     const [symbol, setSymbol] = useState("");
     const [quantity, setQuantity] = useState("");
     const [tradeType, setTradeType] = useState("buy");  

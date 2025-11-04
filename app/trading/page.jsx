@@ -80,9 +80,9 @@ useEffect(()=> {
 
     };
     function getAIPrediction(symbol) {
-  const signals = ["STRONG BUY", "BUY", "HOLD", "SELL", "STRONG SELL"];
-  const randomSignal = signals[Math.floor(Math.random() * signals.length)];
-  const confidence = (Math.random() * (100 - 60) + 60).toFixed(1); // 60–100%
+      const signals = ["STRONG BUY", "BUY", "HOLD", "SELL", "STRONG SELL"];
+      const randomSignal = signals[Math.floor(Math.random() * signals.length)];
+      const confidence = (Math.random() * (100 - 60) + 60).toFixed(1); // 60–100%
 
   return {
     symbol,
@@ -91,6 +91,17 @@ useEffect(()=> {
     timestamp: new Date().toLocaleTimeString(),
   };
 }
+useEffect(() => {
+  // Generate initial prediction
+  setPrediction(getAIPrediction(symbol));
+
+  // Update every 30 seconds
+  const interval = setInterval(() => {
+    setPrediction(getAIPrediction(symbol));
+  }, 30000);
+
+  return () => clearInterval(interval);
+}, [symbol]);
 
 
    return (
