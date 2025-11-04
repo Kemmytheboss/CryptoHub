@@ -3,9 +3,15 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 
 function Hero() {
+  const router = useRouter();
+
+  const handleExplore = () => {
+    router.push("/trading")
+  }
   return (
     <section className="relative flex flex-col md:flex-row items-center justify-between px-8 md:px-16 py-20 bg-gradient-to-br from-[#4B0082] via-[#2F2FA2] to-[#00C2FF] text-white overflow-hidden">
       
@@ -24,12 +30,16 @@ function Hero() {
         </p>
 
         <div className="flex justify-center gap-6 mt-6 flex-wrap">
-          <button className="px-8 py-3 font-semibold bg-[#FF00FF] text-[#0A0A0A] border-2 border-[#00FFF0] shadow-[0_0_10px_#00FFF0] hover:bg-transparent hover:text-[#00FFF0] hover:shadow-[0_0_25px_#00FFF0] transition-all duration-300 rounded-full !rounded-full">
+          <button 
+            onClick={handleExplore}
+            className="px-8 py-3 font-semibold bg-[#FF00FF] text-[#0A0A0A] border-2 border-[#00FFF0] shadow-[0_0_10px_#00FFF0] hover:bg-transparent hover:text-[#00FFF0] hover:shadow-[0_0_25px_#00FFF0] transition-all duration-300 rounded-full !rounded-full">
             Explore Trends
           </button>
+
           <button className="px-8 py-3 font-semibold border-2 border-[#FF00FF] text-[#FF00FF] bg-transparent hover:bg-[#FF00FF] hover:text-[#00FFF0] hover:shadow-[0_0_25px_#FF00FF] transition-all duration-300 rounded-full !rounded-full">
             Join Community
           </button>
+          
         </div>
 
         <p className="text-sm text-gray-300 mt-6">Powered by data. Driven by community.</p>
