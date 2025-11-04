@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "./AuthContext";
+
+
 
 export default function AuthForm({ type = "login" }) {
   const [form, setForm] = useState({
@@ -10,6 +13,7 @@ export default function AuthForm({ type = "login" }) {
     password: "",
     terms: false
   });
+  const { login } = useAuth();
 
   const router = useRouter();
 
@@ -40,10 +44,11 @@ export default function AuthForm({ type = "login" }) {
 
       if (form.email === correctEmail && form.password === correctPassword) {
         alert("✅ Login successful!");
-        router.push("/");
+        login(form.email, form.username || "User");
       } else {
         alert("❌ Incorrect email or password.");
       }
+
     }
   };
 
