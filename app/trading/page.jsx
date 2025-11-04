@@ -8,12 +8,15 @@ export default function TradingPlatform() {
   const [price, setPrice] = useState(0);
   const [amount, setAmount] = useState ("")
   const [orders, setOrders] = useState([]);
+  const [prediction, setPrediction] = useState(null);
 
   const coins = ["BTCUSDT", "TRXUSDT", "DOGEUSDT", "BNBUSDT", "SOLUSDT","XRPUSDT" ];
 
   useEffect (()=>{
     if(!container.current) return;
     container.current.innerHTML = "";
+    setPrediction(getAIPrediction(symbol));
+
 
     const script = document.createElement('script');
     script.src = 
@@ -117,12 +120,30 @@ useEffect(()=> {
         </p>
       </div>
 
-      {/* Chart */}
-       <div
-        ref={container}
-        className="tradingview-chart-container rounded-xl overflow-hidden mb-8"
-        style={{ height: "500px" }}
-      ></div>
+       {/* Chart + AI Predictions */}
+      <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div ref={container} className="md:col-span-2 tradingview-chart-container rounded-xl overflow-hidden" style={{ height: "500px" }}></div>
+
+        <div className="bg-gray-800 p-6 rounded-xl text-center flex flex-col justify-center">
+          <h3 className="text-2xl font-semibold mb-4">AI Market Prediction</h3>
+          {prediction ? (
+            <>
+              <p className="text-lg text-gray-300">Symbol: <span className="font-bold">{prediction.symbol}</span></p>
+              <p className={`text-3xl font-bold mt-2 ${
+                prediction.signal.includes("BUY") ? "text-green-400" :
+                prediction.signal.includes("SELL") ? "text-red-400" : "text-yellow-400"
+              }`}>
+                {prediction.signal}
+              </p>
+              <p className="text-gray-400 mt-2">Confidence: {prediction.confidence}%</p>
+              <p className="text-gray-500 text-sm mt-2">Updated: {prediction.timestamp}</p>
+            </>
+          ) : (
+            <p className="text-gray-500">Generating AI prediction...</p>
+          )}
+        </div>
+      </div>
+
 
       {/* Order Section */}
       <div className="grid md:grid-cols-3 gap-6">
