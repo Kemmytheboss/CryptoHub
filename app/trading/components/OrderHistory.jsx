@@ -1,41 +1,44 @@
 "use client";
-import React, {useState, useEffect} from "react";
+import React from "react";
 
-export default function OrderHistory() {
-    const [orders, setOrders] = useState([]);
-
-    useEffect (()=> {
-        setOrders([
-            { id: 1, symbol: "BTCUSDT", side: "BUY", price: "65000", quantity: "0.001", status: "FILLED" },
-            { id: 2, symbol: "ETHUSDT", side: "SELL", price: "3200", quantity: "0.05", status: "PENDING" },
-        ]);
-    }, []);
-    return (
-        <div>
-            <h2 className="text-2xl font-semibold mb-4 text-[#00c0ff]">Order History</h2>
-            <table className="w-full text-sm bg-gray-900/40 rounded-xl overflow-hidden">
-                <thead className="bg-[#00e0ff]/10 text-[#00e0ff]">
-                    <tr>
-                        <th className="p-3 text-left">Symbol</th>
-                        <th className="p-3 text-left">Side</th>
-                        <th className="p-3 text-left">Price</th>
-                        <th className="p-3 text-left">Quantity</th>
-                        <th className="p-3 text-left">Status</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {orders.map((o)=> (
-                        <tr key={o.id} className="border-b border-gray-700">
-                            <td className="p-3">{o.Reactsymbol}</td>
-                            <td className={`p-3 ${o.side === "BUY" ? "text-green-400" : "text-red-400"}`}>{o.side}</td>
-                            <td className="p-3">{o.price}</td>
-                            <td className="p-3">{o.quantity}</td>
-                            <td className="p-3 text-gray-300">{o.status}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+export default function OrderHistory({ orders }) {
+  return (
+    <div className="bg-gray-800 p-6 rounded-xl">
+      <h3 className="text-2xl font-semibold mb-4 text-center">Order History</h3>
+      {orders.length === 0 ? (
+        <p className="text-gray-400 text-center">No orders yet.</p>
+      ) : (
+        <table className="w-full text-sm text-gray-300">
+          <thead className="border-b border-gray-700">
+            <tr>
+              <th className="py-2">Type</th>
+              <th>Symbol</th>
+              <th>Amount</th>
+              <th>Price</th>
+              <th>Total</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order.id} className="border-b border-gray-700">
+                <td
+                  className={`py-2 font-bold ${
+                    order.type === "BUY" ? "text-green-400" : "text-red-400"
+                  }`}
+                >
+                  {order.type}
+                </td>
+                <td>{order.symbol}</td>
+                <td>{order.amount}</td>
+                <td>${order.price}</td>
+                <td>${order.total}</td>
+                <td>{order.time}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
   );
 }
