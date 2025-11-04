@@ -18,4 +18,19 @@ export function AuthProvider({children}) {
         localStorage.removeItem("user");
         router.push("/login");
     };
+
+    useState(()=>{
+        const saved = localStorage.getItem("user")
+        if (saved) setUser(JSON.parse(saved));
+    });
+
+    return (
+        <AuthContext.Provider value={{  user, login, logout}}>
+            {children}
+        </AuthContext.Provider>
+    );
+}
+
+export function  useAuth () {
+    return useContext(AuthContext)
 }
