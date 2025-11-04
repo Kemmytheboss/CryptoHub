@@ -1,6 +1,6 @@
 "use client";
-import NavBar from "./trading/components/NavBar";
-import Footer from "./trading/components/Footer";
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from "react";
 import "./globals.css";
