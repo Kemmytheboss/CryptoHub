@@ -1,10 +1,13 @@
 "use client";
 import React from "react";
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
+import { useAuth } from "../context/AuthProvider"; // ✅ import your auth context
 
 export default function AppNavbar() {
+  const { user, logout } = useAuth(); // ✅ access user + logout from context
+
   return (
     <Navbar
       expand="lg"
@@ -39,11 +42,8 @@ export default function AppNavbar() {
             <Nav.Link as={Link} href="/dashboard" className="mx-2 text-light">
               Dashboard
             </Nav.Link>
-            <Nav.Link as={Link} href="/trading">
+            <Nav.Link as={Link} href="/trading" className="mx-2 text-light">
               Trading
-            </Nav.Link>
-            <Nav.Link as={Link} href="/predictions" className="mx-2 text-light">
-              Predictions
             </Nav.Link>
             <Nav.Link as={Link} href="/about" className="mx-2 text-light">
               About
@@ -53,24 +53,35 @@ export default function AppNavbar() {
             </Nav.Link>
           </Nav>
 
-          {/* Right Side Buttons */}
+          {/* ===== Right Section (Auth Buttons or User Menu) ===== */}
           <div className="d-flex justify-content-end gap-2 mt-3 mt-lg-0">
-            <Button
-              variant="outline-light"
-              size="sm"
-              as={Link}
-              href="/login"
-            >
-              Login
-            </Button>
-            <Button
-              variant="primary"
-              size="sm"
-              as={Link}
-              href="/register"
-            >
-              Register
-            </Button>
+            {!user ? (
+              <>
+                <Button variant="outline-light" size="sm" as={Link} href="/login">
+                  Login
+                </Button>
+                <Button variant="primary" size="sm" as={Link} href="/register">
+                  Register
+                </Button>
+              </>
+            ) : (
+              <NavDropdown
+                title={
+                  <span className="text-light">
+                    👋 {user.username || "User"}
+                  </span>
+                }
+                align="end"
+              >
+                <NavDropdown.Item as={Link} href="/profile">
+                  Profile
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={logout} className="text-danger">
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            )}
           </div>
         </Navbar.Collapse>
       </Container>
