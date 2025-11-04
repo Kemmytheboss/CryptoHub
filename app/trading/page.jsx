@@ -58,7 +58,27 @@ useEffect(()=> {
     const interval= setInterval(fetchPrice, 15000);
     return () => clearInterval(interval);
   }, [symbol]);
-  
+
+    // to place order (mock)
+
+    const handleOrder=(type) => {
+      if (!amount) return alert("Enter an amount first.");
+      const total = (price * parseFloat(amount).toFixed(2));
+      const newOrder = {
+        id: Date.now(),
+        type,
+        symbol,
+        amount,
+        price,
+        total,
+        time: new Date().toLocaleTimeString(),
+      };
+      setOrders([newOrder, ...orders]);
+      setAmount("");
+      alert(`${type} order placed for ${amount} ${symbol} at $${price}`);
+
+    };
+    
    return (
     <section className="trading-page">
       <div className="trading-chart-section">
