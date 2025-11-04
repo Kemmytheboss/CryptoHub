@@ -1,4 +1,5 @@
 'use client';
+import { clear } from "console";
 import React, {useState, useRef, useEffect} from "react";
 import { getEffectiveConstraintOfTypeParameter } from "typescript";
 
@@ -35,6 +36,29 @@ export default function TradingPlatform() {
       calendar: false,
       support_host: "https://www.tradingview.com",
   });
+  container.current.appendChild(script);
+},[symbol]);
+
+useEffect(()=> {
+  async function fetchPrice () {
+    try {
+      const res= await fetch (
+        `https://api.coingecko.com/api/v3/simple/price?ids=${symbol
+            .replace("USDT", "")
+            .toLowerCase()}&vs_currencies=usd`
+      );
+      const data = await res.json();
+      const priceValue = data[symbol.replace("USDT", "").toLowerCase()] ?.usd;
+      if(priceValue) setPrice(priceValue);
+    } catch (error) {
+      console.error("Price fetch failed, error");
+    }
+  }
+    fetchPrice();
+    const interval= setInterval(fetchPrice, 15000);
+    return () => clearInterval(interval);
+  }, [symbol]);
+  
    return (
     <section className="trading-page">
       <div className="trading-chart-section">
