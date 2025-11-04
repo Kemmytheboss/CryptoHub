@@ -1,10 +1,41 @@
 'use client';
-import TradingChart from "../..components/TradingChart";
-import TradeForm from "../../components/TradeForm";
-import orderHistory from "../../components/OrderHistory";
+import React, {useState, useRef, useEffect} from "react";
+import { getEffectiveConstraintOfTypeParameter } from "typescript";
 
-export default function TradingPage() {
-  return (
+export default function TradingPlatform() {
+  const container = useRef;
+
+  const [symbol,setSymbol] = useState ("BTCUSDT");
+  const [price, setPrice] = useState(0);
+  const [amount, setAmount] = useState ("")
+  const [orders, setOrders] = useState([]);
+
+  const coins = ["BTCUSDT", "TRXUSDT", "DOGEUSDT", "BNBUSDT", "SOLUSDT","XRPUSDT" ];
+
+  useEffect (()=>{
+    if(!container.current) return;
+    container.current.innerHTML = "";
+
+    const script = document.createElement('script');
+    script.src = 
+      "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+    script.type = "text/javascript";
+    script.async = true;
+    script.innerHTML = JSON.stringify({
+      autosize: true,
+      symbol: `BINANCE:${symbol}`,
+      interval: "60",
+      timezone: "Etc/UTC",
+      theme: "dark",
+      style: "1",
+      locale: "en",
+      enable_publishing: false,
+      hide_legend: false,
+      allow_symbol_change: true,
+      calendar: false,
+      support_host: "https://www.tradingview.com",
+  });
+   return (
     <section className="trading-page">
       <div className="trading-chart-section">
         <h1 classname="text-2xl font-bold mb-4">Trading Chart</h1>
