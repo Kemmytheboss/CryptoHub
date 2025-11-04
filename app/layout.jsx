@@ -4,7 +4,7 @@ import Footer from "./components/Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 import "./globals.css";
-import {AuthProvider} from "./components/AuthContext";
+import {AuthProvider} from "./components/AuthProvider";
 
 
 export default function RootLayout({ children}) {

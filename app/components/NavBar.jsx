@@ -3,10 +3,10 @@ import React from "react";
 import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
-import { useAuth } from "../context/AuthProvider"; // ✅ import your auth context
+import { useAuth } from "./AuthProvider"; 
 
 export default function AppNavbar() {
-  const { user, logout } = useAuth(); // ✅ access user + logout from context
+  const { user, logout } = useAuth(); 
 
   return (
     <Navbar
@@ -17,7 +17,7 @@ export default function AppNavbar() {
       className="shadow-sm py-3"
     >
       <Container fluid>
-        {/* ===== Left Section: Logo + Title ===== */}
+        {/* Left Section: Logo + Title */}
         <Navbar.Brand as={Link} href="/" className="d-flex align-items-center gap-2">
           <Image
             src="/images/logo.png"
@@ -29,10 +29,10 @@ export default function AppNavbar() {
           <h1 className="h4 m-0 fw-bold text-light">TrendyCryptoVibe</h1>
         </Navbar.Brand>
 
-        {/* ===== Hamburger Menu (Mobile) ===== */}
+        {/* Hamburger Menu (Mobile)  */}
         <Navbar.Toggle aria-controls="main-navbar" />
 
-        {/* ===== Center + Right Sections ===== */}
+        {/* Center + Right Sections */}
         <Navbar.Collapse id="main-navbar">
           {/* Centered Nav Links */}
           <Nav className="mx-auto text-center">
@@ -53,7 +53,7 @@ export default function AppNavbar() {
             </Nav.Link>
           </Nav>
 
-          {/* ===== Right Section (Auth Buttons or User Menu) ===== */}
+          {/* Right Section (Auth Buttons or User Menu) */}
           <div className="d-flex justify-content-end gap-2 mt-3 mt-lg-0">
             {!user ? (
               <>

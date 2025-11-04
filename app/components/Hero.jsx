@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
+
 function Hero() {
   return (
     <section className="relative flex flex-col md:flex-row items-center justify-between px-8 md:px-16 py-20 bg-gradient-to-br from-[#4B0082] via-[#2F2FA2] to-[#00C2FF] text-white overflow-hidden">

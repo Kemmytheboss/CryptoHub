@@ -1,16 +1,16 @@
-import Hero from "./trading/components/Hero";
-import LiveDashboard from "./trading/components/LiveDashboard";
-import SocialFeed from "./trading/components/SocialFeed";
-import Contact from "./trading/components/Contact";
+import Hero from "./components/Hero";
+import About from "./components/About";
+import Contact from "./components/Contact";
 
  function Home() {
   return (
-    <div>
-      <Hero />
-      <LiveDashboard />
-      <SocialFeed />
-      <Contact />
-    </div>
+    <main className="bg-gray-950 text-white">
+      <section>
+        <Hero/>
+        <About />
+        <Contact />
+      </section>
+    </main>
   );
 }
 export default Home;
