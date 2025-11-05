@@ -39,9 +39,6 @@ export default function AppNavbar() {
             <Nav.Link as={Link} href="/" className="mx-2 text-light">
               Home
             </Nav.Link>
-            <Nav.Link as={Link} href="/dashboard" className="mx-2 text-light">
-              Dashboard
-            </Nav.Link>
             <Nav.Link as={Link} href="/trading" className="mx-2 text-light">
               Trading
             </Nav.Link>

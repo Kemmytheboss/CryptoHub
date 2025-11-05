@@ -33,13 +33,13 @@ function Hero() {
           <button 
             onClick={handleExplore}
             className="px-8 py-3 font-semibold bg-[#FF00FF] text-[#0A0A0A] border-2 border-[#00FFF0] shadow-[0_0_10px_#00FFF0] hover:bg-transparent hover:text-[#00FFF0] hover:shadow-[0_0_25px_#00FFF0] transition-all duration-300 rounded-full !rounded-full">
-            Explore Trends
+            Explore Trading
           </button>
 
           <button className="px-8 py-3 font-semibold border-2 border-[#FF00FF] text-[#FF00FF] bg-transparent hover:bg-[#FF00FF] hover:text-[#00FFF0] hover:shadow-[0_0_25px_#FF00FF] transition-all duration-300 rounded-full !rounded-full">
             Join Community
           </button>
-          
+
         </div>
 
         <p className="text-sm text-gray-300 mt-6">Powered by data. Driven by community.</p>
