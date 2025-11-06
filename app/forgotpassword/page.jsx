@@ -4,18 +4,39 @@ import { useState } from "react";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
 
     if (!email) {
-      alert("⚠️ Please enter your email address.");
+      setMessage("⚠️ Please enter your email address.");
       return;
     }
 
-    // Here you'd call your backend API to send the reset link
-    console.log("Sending reset link to:", email);
-    alert("✅ Password reset link sent to your email!");
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage(data.message);
+      } else {
+        setMessage(`❌ ${data.message || "Failed to send reset link."}`);
+      }
+    } catch (err) {
+      setMessage("❌ Network error. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -40,10 +61,19 @@ export default function ForgotPasswordPage() {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded transition-colors"
+          disabled={loading}
+          className={`w-full font-semibold py-3 rounded transition-colors ${
+            loading
+              ? "bg-gray-600 cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700 text-white"
+          }`}
         >
-          Send Reset Link
+          {loading ? "Sending..." : "Send Reset Link"}
         </button>
+
+        {message && (
+          <p className="text-center mt-4 text-gray-300">{message}</p>
+        )}
 
         <p className="text-gray-400 text-center mt-6">
           Remembered your password?{" "}
