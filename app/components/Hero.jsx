@@ -36,7 +36,9 @@ function Hero() {
             Explore Trading
           </button>
 
-          <button className="px-8 py-3 font-semibold border-2 border-[#FF00FF] text-[#FF00FF] bg-transparent hover:bg-[#FF00FF] hover:text-[#00FFF0] hover:shadow-[0_0_25px_#FF00FF] transition-all duration-300 rounded-full !rounded-full">
+          <button 
+          onClick={()=> router.push("/community")}
+          className="px-8 py-3 font-semibold border-2 border-[#FF00FF] text-[#FF00FF] bg-transparent hover:bg-[#FF00FF] hover:text-[#00FFF0] hover:shadow-[0_0_25px_#FF00FF] transition-all duration-300 rounded-full !rounded-full">
             Join Community
           </button>
 

@@ -14,10 +14,10 @@ export default function RootLayout({ children}) {
 
   return (
     <html lang="en">
-      <body className="d-flex flex-column min-vh-100">
+      <body className="flex flex-col min-h-screen bg-gray-900 text-white">
         <AuthProvider>
           <NavBar />
-          <main className="flex-grow-1">{children}</main>
+          <main className="flex-grow">{children}</main>
           <Footer />
         </AuthProvider>
       </body>
