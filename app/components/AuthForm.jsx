@@ -8,9 +8,10 @@ import { useAuth } from "./AuthProvider";
 
 export default function AuthForm({ type = "login" }) {
   const [form, setForm] = useState({
-    username: "",
     email: "",
+    username: "",
     password: "",
+    confirmPassword: "",
     terms: false
   });
   const { login } = useAuth();
@@ -25,28 +26,42 @@ export default function AuthForm({ type = "login" }) {
     });
   };
 
+  const validatePassword =  (password) => {
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_.])[A-Za-z\d@$!%*?&_.]{6,}$/;
+    return regex.test(password);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (type === "register") {
-      if (!form.terms) {
-        alert("⚠️ You must agree to the Terms & Conditions");
+      if (!validatePassword(form.password)) {
+        alert("❌ Passowrd must be atleast\n- 6 characters\n- 1 uppercase\n- 1 lowercase letter\n- number\n- special character!");
         return;
       }
 
+      if (form.password !=form.confirmPassword) {
+        alert ("❌ Passwords do not match!");
+        return;
+      }
+
+      if(!form.terms) {
+        alert("⚠️You must agree to the Terms & Conditions!")
+      }
       console.log("Registering:", form);
       alert("✅ Registration successful!");
-      router.push("/login");
+      router.push("/");
     } else {
       // Mock login check
-      const correctEmail = "user@example.com";
-      const correctPassword = "123456";
+      const correctUsername = "verahm";
+      const correctPassword = "Aa123@";
 
-      if (form.email === correctEmail && form.password === correctPassword) {
+      if (form.username === correctUsername && form.password === correctPassword) {
         alert("✅ Login successful!");
-        login(form.email, form.username || "User");
+        login(form.username || "User");
       } else {
-        alert("❌ Incorrect email or password.");
+        alert("❌ Incorrect username or password.");
       }
 
     }
@@ -60,6 +75,16 @@ export default function AuthForm({ type = "login" }) {
       <h2 className="text-2xl font-bold text-center mb-6 text-white">
         {type === "register" ? "Register" : "Login"}
       </h2>
+      
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        value={form.email}
+        onChange={handleChange}
+        required
+        className="w-full mb-4 p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
 
       {type === "register" && (
         <input
@@ -74,16 +99,6 @@ export default function AuthForm({ type = "login" }) {
       )}
 
       <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={handleChange}
-        required
-        className="w-full mb-4 p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-
-      <input
         type="password"
         name="password"
         placeholder="Password"
@@ -92,7 +107,20 @@ export default function AuthForm({ type = "login" }) {
         required
         className="w-full mb-2 p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+      
+      {type === "register" && (
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          value={form.password}
+          onChange={handleChange}
+          required
+          className="w-full mb-2 p-3 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      )}
 
+      {/* forgot password */}
       {type === "login" && (
         <div className="flex justify-end mb-6">
           <a href="/forgot-password" className="text-blue-500 hover:underline text-sm">
