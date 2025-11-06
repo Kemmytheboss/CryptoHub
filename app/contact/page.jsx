@@ -1,6 +1,6 @@
 "use client";
 
-import Contact from "../trading/components/Contact"; 
+import Contact from "../components/Contact"; 
 
 export default function ContactPage() {
   return <Contact />;
