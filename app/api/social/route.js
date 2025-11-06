@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getRedditPosts } from "../social-sources/reddit";
-import { getTwitterPosts } from "../social-sources/twitter";
+import { getTwitterPosts } from "../social-sources/x";
 import { getTikTokPosts } from "../social-sources/tiktok";
 import { getTelegramPosts } from "../social-sources/telegram";
 

@@ -1,16 +1,24 @@
+// app/api/social-sources/tiktok.js
+
 export async function getTikTokPosts() {
   try {
-    // Example using a public crypto hashtag feed API / mock
-    const res = await fetch("https://api.example.com/tiktok/crypto");
-    const data = await res.json();
-
-    return data.videos.map((video) => ({
-      platform: "TikTok",
-      title: video.caption,
-      author: video.creator,
-      url: video.link,
-      date: video.created_at,
-    }));
+    // Since TikTok has no public API, we'll return a placeholder list for now
+    return [
+      {
+        platform: "TikTok",
+        title: "🔥 Bitcoin trends again on TikTok",
+        author: "@cryptoBuzz",
+        url: "https://www.tiktok.com/@cryptoBuzz",
+        date: new Date().toISOString(),
+      },
+      {
+        platform: "TikTok",
+        title: "Altcoin season incoming? 👀",
+        author: "@blockchainQueen",
+        url: "https://www.tiktok.com/@blockchainQueen",
+        date: new Date(Date.now() - 3600000).toISOString(),
+      },
+    ];
   } catch (err) {
     console.error("TikTok fetch error:", err);
     return [];
