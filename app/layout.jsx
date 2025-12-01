@@ -1,25 +1,19 @@
-"use client";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect } from "react";
-import "./globals.css";
-import {AuthProvider} from "./components/AuthProvider";
+import "./global.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
+export const metadata = {
+  title: "TrendyCryptoVibe",
+  description: "AI-Driven Crypto Insights & Social Platform",
+};
 
-export default function RootLayout({ children}) {
-   useEffect(() => {
-    import("bootstrap/dist/js/bootstrap.bundle.min.js");
-  }, []);
-
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="flex flex-col min-h-screen bg-gray-900 text-white">
-        <AuthProvider>
-          <NavBar />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </AuthProvider>
+      <body className="bg-gray-100 min-h-screen">
+        <Navbar />
+        <main className="pt-20 max-w-7xl mx-auto px-4">{children}</main>
+        <Footer />
       </body>
     </html>
   );
