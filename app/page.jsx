@@ -1,12 +1,14 @@
 import Hero from "./components/Hero";
+import RedditFeed from "./components/RedditFeed";
+import CoinList from "./components/CoinList";
 
  function Home() {
   return (
-    <main className="bg-gray-950 text-white">
-      <section>
-        <Hero/>
-      </section>
-    </main>
+    <div className="space-y-10">
+      <Hero/>
+      <CoinList/>
+      <RedditFeed/>
+    </div>
   );
 }
 export default Home;
