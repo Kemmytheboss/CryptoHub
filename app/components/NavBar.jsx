@@ -1,87 +1,93 @@
 "use client";
-import React from "react";
-import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
-import Image from "next/image";
+import { useState } from "react";
 import Link from "next/link";
-import { useAuth } from "./AuthProvider"; 
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
-export default function AppNavbar() {
-  const { user, logout } = useAuth(); 
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  const links = [
+    { name: "Home", href: "/" },
+    { name: "Community", href: "/community" },
+    { name: "Trading", href: "/trading" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
+  ];
 
   return (
-    <Navbar
-      expand="lg"
-      bg="dark"
-      variant="dark"
-      sticky="top"
-      className="shadow-sm py-3"
-    >
-      <Container fluid>
-        {/* Left Section: Logo + Title */}
-        <Navbar.Brand as={Link} href="/" className="d-flex align-items-center gap-2">
-          <Image
-            src="/images/logo.png"
-            alt="Logo"
-            width={50}
-            height={50}
-            className="rounded-circle"
-          />
-          <h1 className="h4 m-0 fw-bold text-light">TrendyCryptoVibe</h1>
-        </Navbar.Brand>
+    <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between p-4">
+        
+        {/* LEFT — LOGO */}
+        <Link href="/" className="flex items-center space-x-2">
+          <Image src="/images/bit.gif" width={40} height={40} alt="logo" />
+          <h1 className="text-xl font-bold text-purple-600">TrendyCryptoVibe</h1>
+        </Link>
 
-        {/* Hamburger Menu (Mobile)  */}
-        <Navbar.Toggle aria-controls="main-navbar" />
-
-        {/* Center + Right Sections */}
-        <Navbar.Collapse id="main-navbar">
-          {/* Centered Nav Links */}
-          <Nav className="mx-auto text-center">
-            <Nav.Link as={Link} href="/" className="mx-2 text-light">
-              Home
-            </Nav.Link>
-            <Nav.Link as={Link} href="/trading" className="mx-2 text-light">
-              Trading
-            </Nav.Link>
-            <Nav.Link as={Link} href="/about" className="mx-2 text-light">
-              About
-            </Nav.Link>
-            <Nav.Link as={Link} href="/contact" className="mx-2 text-light">
-              Contact
-            </Nav.Link>
-          </Nav>
-
-          {/* Right Section (Auth Buttons or User Menu) */}
-          <div className="d-flex justify-content-end gap-2 mt-3 mt-lg-0">
-            {!user ? (
-              <>
-                <Button variant="outline-light" size="sm" as={Link} href="/login">
-                  Login
-                </Button>
-                <Button variant="primary" size="sm" as={Link} href="/register">
-                  Register
-                </Button>
-              </>
-            ) : (
-              <NavDropdown
-                title={
-                  <span className="text-light">
-                    👋 {user.username || "User"}
-                  </span>
-                }
-                align="end"
+        {/* CENTER — DESKTOP LINKS */}
+        <ul className="hidden md:flex items-center space-x-8 text-gray-700 font-medium">
+          {links.map((l) => (
+            <li key={l.name}>
+              <Link
+                href={l.href}
+                className="hover:text-purple-600 transition"
               >
-                <NavDropdown.Item as={Link} href="/profile">
-                  Profile
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item onClick={logout} className="text-danger">
-                  Logout
-                </NavDropdown.Item>
-              </NavDropdown>
-            )}
-          </div>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+                {l.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* RIGHT — AUTH BUTTONS */}
+        <div className="hidden md:flex space-x-4">
+          <Link href="/login" className="px-4 py-2 text-purple-600 hover:text-purple-800">
+            Login
+          </Link>
+          <Link
+            href="/register"
+            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+          >
+            Sign Up
+          </Link>
+        </div>
+
+        {/* MOBILE MENU BUTTON */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="md:hidden text-gray-700"
+        >
+          {open ? <X size={28} /> : <Menu size={28} />}
+        </button>
+      </nav>
+
+      {/* MOBILE MENU */}
+      {open && (
+        <div className="md:hidden bg-white shadow-md p-4 space-y-4">
+          {links.map((l) => (
+            <Link
+              key={l.name}
+              href={l.href}
+              className="block text-gray-700 text-lg"
+              onClick={() => setOpen(false)}
+            >
+              {l.name}
+            </Link>
+          ))}
+
+          <hr />
+
+          <Link href="/login" className="block text-purple-600">
+            Login
+          </Link>
+          <Link
+            href="/register"
+            className="block bg-purple-600 text-white px-4 py-2 rounded-lg"
+          >
+            Sign Up
+          </Link>
+        </div>
+      )}
+    </header>
   );
 }
